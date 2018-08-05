@@ -1,0 +1,12 @@
+ name: StackIt-Shop
+ version: 1.0.0
+ description: A StackIt shop bundle
+
+ author: Marethyun
+
+ main: org.stackit.shop.StackItShop
+
+# As a bundle, depends on the StackIt main plugin
+ depend: [StackIt]
+
+ database: true

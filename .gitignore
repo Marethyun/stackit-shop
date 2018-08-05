@@ -1,0 +1,9 @@
+/.gradle/
+/.idea/
+/build/
+/out/
+stackit-plugin.iml
+.classpath
+move.bat
+gradle.properties
+stackit-plugin-all.jar

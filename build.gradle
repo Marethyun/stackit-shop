@@ -1,0 +1,35 @@
+group 'org.stackit'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+
+    maven {
+        url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+
+    maven {
+        url "http://repo.md-5.net/content/groups/public/"
+    }
+
+    maven {
+        url = "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+
+    flatDir {
+        dirs '.'
+    }
+}
+
+dependencies {
+
+    compileOnly name: 'stackit-plugin-all'
+
+    compileOnly "org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT"
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
