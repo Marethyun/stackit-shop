@@ -5,15 +5,16 @@ import org.bukkit.ChatColor;
 import org.stackit.Bundler;
 import org.stackit.StackIt;
 import org.stackit.StackItBundle;
+import org.stackit.StackItLogger;
 
 public class StackItShop extends StackItBundle {
 
     public static final String PREFIX = ChatColor.AQUA + "[StackIt-Shop] ";
-
     public static final String ENABLING_MESSAGE = "Successfully enabled StackIt-Shop bundle !";
 
     private Bundler bundler;
     private EntityHandler handler;
+    private StackItLogger logger = new StackItLogger(getServer().getConsoleSender(), PREFIX);
 
     public StackItShop() {
         super("StackIt Shop");
@@ -34,15 +35,11 @@ public class StackItShop extends StackItBundle {
 
     @Override
     public void onEnable() {
-        broadcast(ENABLING_MESSAGE);
+
     }
 
     @Override
     public void onDisable() {
-        super.onDisable();
-    }
 
-    private void broadcast(Object message){
-        getServer().broadcastMessage(PREFIX + message);
     }
 }
