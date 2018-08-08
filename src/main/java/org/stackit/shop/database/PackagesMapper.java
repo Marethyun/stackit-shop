@@ -7,30 +7,37 @@ import org.stackit.shop.PackageUID;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 public class PackagesMapper implements RowMapper<Package> {
     @Override
     public Package map(ResultSet rs, StatementContext ctx) throws PackageUID.MalformedUIDException, SQLException {
-
         Package pkg = new Package();
 
         pkg.setId(rs.getInt("id"));
-        pkg.setUid(new PackageUID(rs.getString("uid")));
-        pkg.setPlayerUUID(UUID.fromString(rs.getString("player_uuid")));
+        pkg.setUid(rs.getString("uid"));
+        pkg.setPlayer_uuid(rs.getString("player_uuid"));
+        pkg.setCommands(rs.getString("commands"));
+        pkg.setSlotsnumber(rs.getInt("slotsnumber"));
+        pkg.setName(rs.getString("name"));
+        pkg.setClaimed_time(rs.getLong("claimed_time"));
 
-        String commands = rs.getString("commands");
+        return pkg;
+
+    }
+
+    public static Package mapEntity(Package pkg){
+
+        pkg.setPackageUID(new PackageUID(pkg.getUid()));
+        pkg.setPlayerUUID(UUID.fromString(pkg.getPlayer_uuid()));
+
+        String commands = pkg.getCommands();
 
         ArrayList<String> splitted = new ArrayList<>(Arrays.asList(commands.split(";")));
 
-        pkg.setCommands(splitted);
-        pkg.setSlotsNumber(rs.getInt("slotnumber"));
-        pkg.setName(rs.getString("name"));
+        pkg.setCommandsList(splitted);
 
-        long claimed_millis = rs.getLong("claimed_time");
+        long claimed_millis = pkg.getClaimed_time();
 
         Date date;
         // If the row was null, the connector returns 0.
@@ -40,12 +47,16 @@ public class PackagesMapper implements RowMapper<Package> {
             date = new Date(claimed_millis);
         }
 
-        pkg.setClaimed(date);
+        pkg.setClaimedDate(date);
 
         return pkg;
     }
 
-    public Package mapEntity(Package p){
-        return null;
+    public static List<Package> mapEntityList(List<Package> list){
+        LinkedList<Package> packages = new LinkedList<>();
+
+        list.forEach(p -> packages.add(mapEntity(p)));
+
+        return packages;
     }
 }

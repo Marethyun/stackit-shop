@@ -44,17 +44,19 @@ public class PackagesListener extends StackItShopContainer implements Listener {
         JsonHeaders headers = new JsonHeaders();
 
         try (Handle handle = jdbi.open()) {
-            List<Package> packages = handle.createQuery(PackagesQueries.GET_ALL.getQuery()).map(new PackagesMapper()).list();
+            List<Package> unFilledPackages = handle.createQuery(PackagesQueries.GET_ALL.getQuery()).map(new PackagesMapper()).list();
+
+            List<Package> packages = PackagesMapper.mapEntityList(unFilledPackages);
 
             LinkedList<JsonConfiguration> pkgs = new LinkedList<>();
 
             for (Package p : packages) {
                 JsonConfiguration c = new JsonConfiguration();
 
-                c.set("uid", p.getUid().toString());
-                c.set("player_uuid", p.getPlayerUUID().toString());
-                c.set("commands", p.getCommands());
-                c.set("slotnumber", p.getSlotsNumber());
+                c.set("uid", p.getUid());
+                c.set("player_uuid", p.getPlayer_uuid());
+                c.set("commands", p.getCommandsList());
+                c.set("slotnumber", p.getSlotsnumber());
                 c.set("name", p.getName());
 
                 boolean claimed = p.isClaimed();
@@ -62,7 +64,7 @@ public class PackagesListener extends StackItShopContainer implements Listener {
                 c.set("claimed", claimed);
 
                 if (claimed){
-                    c.set("claimed_time", p.getClaimed().getTime());
+                    c.set("claimed_time", p.getClaimed_time());
                 }
 
                 pkgs.add(c);
