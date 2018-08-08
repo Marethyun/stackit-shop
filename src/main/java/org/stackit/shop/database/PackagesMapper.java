@@ -44,4 +44,8 @@ public class PackagesMapper implements RowMapper<Package> {
 
         return pkg;
     }
+
+    public Package mapEntity(Package p){
+        return null;
+    }
 }

@@ -21,14 +21,13 @@ import org.stackit.shop.Package;
 import org.stackit.shop.StackItShop;
 import org.stackit.shop.StackItShopContainer;
 import org.stackit.shop.database.PackagesMapper;
+import org.stackit.shop.database.PackagesQueries;
 import org.stackit.shop.database.Tables;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class PackagesListener extends StackItShopContainer implements Listener {
-
-    public static final String GET_ALL_PACKAGES = String.format("SELECT * FROM %s", Tables.PACKAGES.getTableName());
 
     private StackItLogger logger = pluginInstance.logger();
     private Jdbi jdbi = pluginInstance.getJdbi();
@@ -45,7 +44,7 @@ public class PackagesListener extends StackItShopContainer implements Listener {
         JsonHeaders headers = new JsonHeaders();
 
         try (Handle handle = jdbi.open()) {
-            List<Package> packages = handle.createQuery(GET_ALL_PACKAGES).map(new PackagesMapper()).list();
+            List<Package> packages = handle.createQuery(PackagesQueries.GET_ALL.getQuery()).map(new PackagesMapper()).list();
 
             LinkedList<JsonConfiguration> pkgs = new LinkedList<>();
 
