@@ -6,24 +6,28 @@ import java.util.UUID;
 
 public final class Package {
     private int id;
-    private PackageUID uid;
-    private UUID playerUUID;
-    private ArrayList<String> commands;
-    private int slotsNumber;
+    private String uid;
+    private String player_uuid;
+    private String commands;
+    private int slotsnumber;
     private String name;
-    private Date claimed;
+    private long claimed_time;
 
-    public Package() {
-    }
+    private PackageUID packageUID;
+    private UUID playerUUID;
+    private ArrayList<String> commandsList;
+    private Date claimedDate;
 
-    public Package(int id, PackageUID uid, UUID playerUUID, ArrayList<String> commands, int slotsNumber, String name, Date claimed) {
+    public Package() {}
+
+    public Package(int id, String uid, String player_uuid, String commands, int slotsnumber, String name, long claimed_time) {
         this.id = id;
         this.uid = uid;
-        this.playerUUID = playerUUID;
+        this.player_uuid = player_uuid;
         this.commands = commands;
-        this.slotsNumber = slotsNumber;
+        this.slotsnumber = slotsnumber;
         this.name = name;
-        this.claimed = claimed;
+        this.claimed_time = claimed_time;
     }
 
     public int getId() {
@@ -34,36 +38,36 @@ public final class Package {
         this.id = id;
     }
 
-    public PackageUID getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(PackageUID uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
-    public UUID getPlayerUUID() {
-        return playerUUID;
+    public String getPlayer_uuid() {
+        return player_uuid;
     }
 
-    public void setPlayerUUID(UUID playerUUID) {
-        this.playerUUID = playerUUID;
+    public void setPlayer_uuid(String player_uuid) {
+        this.player_uuid = player_uuid;
     }
 
-    public ArrayList<String> getCommands() {
+    public String getCommands() {
         return commands;
     }
 
-    public void setCommands(ArrayList<String> commands) {
+    public void setCommands(String commands) {
         this.commands = commands;
     }
 
-    public int getSlotsNumber() {
-        return slotsNumber;
+    public int getSlotsnumber() {
+        return slotsnumber;
     }
 
-    public void setSlotsNumber(int slotsNumber) {
-        this.slotsNumber = slotsNumber;
+    public void setSlotsnumber(int slotsnumber) {
+        this.slotsnumber = slotsnumber;
     }
 
     public String getName() {
@@ -74,15 +78,49 @@ public final class Package {
         this.name = name;
     }
 
-    public Date getClaimed() {
-        return claimed;
+    public long getClaimed_time() {
+        return claimed_time;
     }
 
-    public void setClaimed(Date claimed) {
-        this.claimed = claimed;
+    public void setClaimed_time(long claimed_time) {
+        this.claimed_time = claimed_time;
+    }
+
+    /************************************************/
+
+    public PackageUID getPackageUID() {
+        return packageUID;
+    }
+
+    public void setPackageUID(PackageUID packageUID) {
+        this.packageUID = packageUID;
+    }
+
+    public UUID getPlayerUUID() {
+        return playerUUID;
+    }
+
+    public void setPlayerUUID(UUID playerUUID) {
+        this.playerUUID = playerUUID;
+    }
+
+    public ArrayList<String> getCommandsList() {
+        return commandsList;
+    }
+
+    public void setCommandsList(ArrayList<String> commandsList) {
+        this.commandsList = commandsList;
+    }
+
+    public Date getClaimedDate() {
+        return claimedDate;
+    }
+
+    public void setClaimedDate(Date claimedDate) {
+        this.claimedDate = claimedDate;
     }
 
     public boolean isClaimed(){
-        return this.claimed != null;
+        return this.claimed_time != 0;
     }
 }
