@@ -27,5 +27,10 @@ public final class PackageUID {
         return uid;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof PackageUID && obj.toString().equalsIgnoreCase(this.toString());
+    }
+
     public class MalformedUIDException extends StackItShopException {}
 }
