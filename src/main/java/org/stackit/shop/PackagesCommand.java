@@ -27,7 +27,7 @@ public class PackagesCommand extends StackItCommand.Option {
     public static final String MESSAGE_PERMISSION_OTHERS = "You don't have the required permission to retrieve packages of an other player";
 
     public static final String USAGE = "/stackit packages [player]";
-    public static final String DESCRIPTION = "Retrieve all packages according to the sender, by pages of 10";
+    public static final String DESCRIPTION = "Retrieve all packages according to the sender";
 
     private final StackItShop pluginInstance;
     private StackItLogger logger;
@@ -72,7 +72,7 @@ public class PackagesCommand extends StackItCommand.Option {
 
             List<Package> packages = retrievePackages(playerUUID);
 
-            displayPackages(packages, playerName, playerUUID.toString());
+            displayPackages(packages, playerName);
         }
 
         if (sender instanceof ConsoleCommandSender){
@@ -80,15 +80,15 @@ public class PackagesCommand extends StackItCommand.Option {
 
             if (playerName == null){
 
-                logger.info(MESSAGE_CONSOLE_MUST_PROVIDE_PLAYER);
-                logger.info(USAGE);
+                logger.error(MESSAGE_CONSOLE_MUST_PROVIDE_PLAYER);
+                logger.error(USAGE);
 
                 return true;
             }
 
             List<Package> packages = retrievePackages(playerUUID);
 
-            displayPackages(packages, playerName, playerUUID.toString());
+            displayPackages(packages, playerName);
 
         }
 
@@ -106,11 +106,11 @@ public class PackagesCommand extends StackItCommand.Option {
         }
     }
 
-    private void displayPackages(List<Package> packages, String playerName, String playerUUID){
+    private void displayPackages(List<Package> packages, String playerName){
         if (packages.size() == 0){
-            logger.info(String.format("Player %s (%s) don't have any packages at his name yet.", playerName, playerUUID));
+            logger.info(String.format("Player %s (%s) don't have any packages at his name yet.", playerName));
         } else {
-            logger.info(String.format("Package(s) of player %s (%s): ", playerName, playerUUID));
+            logger.info(String.format("Package(s) of player %s: ", playerName));
 
             // E.g 1 - AZER1234: A beautiful package
             final String entry = "%s - %s: %s (%s)";
