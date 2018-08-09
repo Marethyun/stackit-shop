@@ -76,6 +76,7 @@ public class StackItShop extends StackItBundle {
             }
 
             bundler.registerCommandOption(this, new PackagesCommand(this));
+            bundler.registerCommandOption(this, new ClaimCommand(this));
 
         } catch (Exception e) {
             logger.error("An exception occurred white loading the bundle..");
