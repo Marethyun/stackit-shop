@@ -4,6 +4,7 @@ import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
 import io.noctin.configuration.YamlConfiguration;
 import io.noctin.events.EntityHandler;
 import org.apache.commons.io.FileUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.jdbi.v3.core.ConnectionException;
 import org.jdbi.v3.core.Handle;
@@ -63,7 +64,6 @@ public class StackItShop extends StackItBundle {
             dataSource.setPassword(password);
             dataSource.setDatabaseName(configuration.getString(ConfigNodes.DATABASE_NAME.getNode()));
 
-
             this.jdbi = Jdbi.create(dataSource);
 
             this.jdbi.installPlugin(new SqlObjectPlugin());
@@ -74,6 +74,8 @@ public class StackItShop extends StackItBundle {
                     logger.success(String.format("Bundle successfully connected to the database ! (retrieved '%s')", s));
                 }
             }
+
+            bundler.registerCommandOption(this, new PackagesCommand(this));
 
         } catch (Exception e) {
             logger.error("An exception occurred white loading the bundle..");
